@@ -2,12 +2,10 @@ from devices import getAllDeviceConfigurations,saveLogsToServer
 from dbOps import connectDB,saveData
 import time
 from zk import ZK
-from datetime import datetime
+from logs import sample_data,sample_data_2
 
 
-from logs import sample_data,data_server
-
-def connect_device(config):
+def connectDevice(config):
     ip = config.get("ip")
     port = config.get("port")
 
@@ -24,7 +22,7 @@ def connect_device(config):
             "error": str(e)
         }
 
-def connect_all_devices(retries = 5, delay=5):
+def connectAllDevices(retries = 5, delay=5):
   devices = getAllDeviceConfigurations()
   not_connected = devices.copy()
   connected = []
@@ -34,7 +32,7 @@ def connect_all_devices(retries = 5, delay=5):
      failed_to_connect = []
 
      for device in not_connected:
-        if connect_device(device):
+        if connectDevice(device):
            print(f"{device['deviceName']} connected successfully")
            connected.append(device)
         else:
@@ -73,13 +71,12 @@ def connect_all_devices(retries = 5, delay=5):
 
 #    return data
 
-
-
-from datetime import datetime
-
 def main():
     connectDB()
-    saveLogsToServer(data_server) 
+    saveData(sample_data_2)
+   #  latest_logs = getLatestLogs()
+   #  print(latest_logs)
+    saveLogsToServer() 
 
 
 

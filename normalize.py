@@ -1,2 +1,2 @@
-def normalize_ZK_Teco():
+def normalizeZKTeco():
     return True
