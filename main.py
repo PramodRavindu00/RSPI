@@ -2,7 +2,7 @@ from devices import getAllDeviceConfigurations,saveLogsToServer
 from dbOps import connectDB,saveData
 import time
 from zk import ZK
-from logs import sample_data,sample_data_2
+from logs import sample_data,sample_data_2,sample_data_3
 
 
 def connectDevice(config):
@@ -73,10 +73,10 @@ def connectAllDevices(retries = 5, delay=5):
 
 def main():
     connectDB()
-    saveData(sample_data_2)
+    saveData(sample_data_3)
    #  latest_logs = getLatestLogs()
    #  print(latest_logs)
-    saveLogsToServer() 
+   #saveLogsToServer() 
 
 
 

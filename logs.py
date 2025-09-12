@@ -39,3 +39,11 @@ sample_data_2= [
     {"deviceId": "4c9e72ac-35b6-4870-a5a6-2035956422bb", "deviceLogId": 8, "employeeCode": "E05", "timestamp": "2025-09-12T14:05:00.000Z"},
     {"deviceId": "4c9e72ac-35b6-4870-a5a6-2035956422bb", "deviceLogId": 8, "employeeCode": "E06", "timestamp": "2025-09-12T14:10:00.000Z"},
 ]
+
+
+sample_data_3 = [
+       {"deviceId": "4c9e72ac-35b6-4870-a5a6-2035956422bb", "deviceLogId": 1, "employeeCode": "E01", "timestamp": "2025-09-11T09:00:00.000Z"},
+       {"deviceId": "4c9e72ac-35b6-4870-a5a6-2035956422bb", "deviceLogId": 1, "employeeCode": "E01", "timestamp": "2025-09-11T09:05:00.000Z"},
+       {"deviceId": "4c9e72ac-35b6-4870-a5a6-2035956422bb", "deviceLogId": 1, "employeeCode": "E01", "timestamp": "2025-09-11T09:10:00.000Z"},
+       {"deviceId": "4c9e72ac-35b6-4870-a5a6-2035956422bb", "deviceLogId": 1, "employeeCode": "E01", "timestamp": "2025-09-11T09:50:00.000Z"},
+]

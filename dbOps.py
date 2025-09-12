@@ -36,7 +36,12 @@ def saveData(data):
          SELECT COUNT(*) FROM fingerprintLog WHERE employeeCode = ? AND DATE(timestamp)= ? """,(log['employeeCode'],log_date))
          existing_count = cursor.fetchone()[0]
 
-         clock_type = 'In' if existing_count == 0 else 'Out'
+         if existing_count ==0:   #no record found its the clock In
+            clock_type = "In"
+         elif existing_count == 1:   #1 record found its the clock Out
+            clock_type = "Out"
+         else :                #all other punches will be ignored
+            continue
 
          cursor.execute("""
          INSERT OR IGNORE INTO fingerprintLog (deviceId,deviceLogId,employeeCode,timestamp,clockType) VALUES(?,?,?,?,?)
