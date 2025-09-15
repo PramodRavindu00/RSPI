@@ -38,11 +38,9 @@ def connectAllDevices(retries=5, delay=5):
             conn = connectDevice(device)
             if conn:
                 conn.test_voice()
-                # Get device name safely to avoid NoneType errors
                 device_name = device.get('fingerPrintDevice', {}).get('name', 'Unknown Device')
                 print(f"{device_name} connected successfully")
                 
-                # Store both connection and device info for later use
                 connected.append({
                     "connection": conn,
                     "device": device
@@ -58,7 +56,6 @@ def connectAllDevices(retries=5, delay=5):
         attempt += 1
 
     if not_connected:
-        # Safely extract device names to avoid NoneType errors
         failed_names = []
         for d in not_connected:
             name = d.get('fingerPrintDevice', {}).get('name', 'Unknown Device')
@@ -76,7 +73,6 @@ def getAllAttendanceLogs(connected_devices):
         conn = item["connection"]     
         device = item["device"]       
         try:
-            # Get device name safely
             device_name = device.get('fingerPrintDevice', {}).get('name', 'Unknown Device')
             
             logs = conn.get_attendance()

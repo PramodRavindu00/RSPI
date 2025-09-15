@@ -25,32 +25,33 @@ def connectDB():
 
 
 def saveData(data):
-   try:
-      conn = sqlite3.connect('db/attendance.db')
-      cursor = conn.cursor()
+   if len(data) > 0:
+      try:
+         conn = sqlite3.connect('db/attendance.db')
+         cursor = conn.cursor()
 
-      for log in data:
-         log_date = datetime.fromisoformat(log['timestamp']).date()
-         #check the employee has existing record with the same date to determine in or out
-         cursor.execute("""
-         SELECT COUNT(*) FROM fingerprintLog WHERE employeeCode = ? AND DATE(timestamp)= ? """,(log['employeeCode'],log_date))
-         existing_count = cursor.fetchone()[0]
+         for log in data:
+            log_date = datetime.fromisoformat(log['timestamp']).date()
+            #check the employee has existing record with the same date to determine in or out
+            cursor.execute("""
+            SELECT COUNT(*) FROM fingerprintLog WHERE employeeCode = ? AND DATE(timestamp)= ? """,(log['employeeCode'],log_date))
+            existing_count = cursor.fetchone()[0]
 
-         if existing_count ==0:   #no record found its the clock In
-            clock_type = "In"
-         elif existing_count == 1:   #1 record found its the clock Out
-            clock_type = "Out"
-         else :                #all other punches will be ignored
-            continue
+            if existing_count ==0:   #no record found its the clock In
+               clock_type = "In"
+            elif existing_count == 1:   #1 record found its the clock Out
+               clock_type = "Out"
+            else :                #all other punches will be ignored
+               continue
 
-         cursor.execute("""
-         INSERT OR IGNORE INTO fingerprintLog (deviceId,deviceLogId,employeeCode,timestamp,clockType) VALUES(?,?,?,?,?)
-         """,(log['deviceId'],log['deviceLogId'],log['employeeCode'],log['timestamp'],clock_type)) 
-         conn.commit()
-   except Exception as e:   
-      print("Error saving data:", e)
-   finally:
-      conn.close()
+            cursor.execute("""
+            INSERT OR IGNORE INTO fingerprintLog (deviceId,deviceLogId,employeeCode,timestamp,clockType) VALUES(?,?,?,?,?)
+            """,(log['deviceId'],log['deviceLogId'],log['employeeCode'],log['timestamp'],clock_type)) 
+            conn.commit()
+      except Exception as e:   
+         print("Error saving data:", e)
+      finally:
+         conn.close()
 
 def selectAllUnsyncedLogs():
       try:
@@ -75,10 +76,11 @@ def updateAllUnsyncedLogs():
          WHERE isSynced = 0
          """)
         conn.commit()  
-        print(f"{cursor.rowcount} rows updated.")
+        print(f"{cursor.rowcount} row/s updated.")
     except Exception as e:
         print(f"Error updating Unsynced logs: {e}")
     finally:
         conn.close()
+
 
 
