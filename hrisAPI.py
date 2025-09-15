@@ -4,6 +4,7 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
+
 HRIS_BASE_URL = os.getenv("HRIS_BASE_URL")
 
 def getAllDeviceConfigurations():

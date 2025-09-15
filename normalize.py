@@ -1,2 +1,0 @@
-def normalizeZKTeco():
-    return True
