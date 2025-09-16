@@ -1,6 +1,6 @@
-from hrisAPI import saveLogsToServer
-from dbOps import connectDB, saveData
-from fingerprintDevice import connectAllDevices,getAllAttendanceLogs
+from Service.hrisService import saveLogsToServer
+from Repository.repository import connectDB, saveData
+from Util.fingerPrintUtil import connectAllDevices,getAllAttendanceLogs
 import time
 import threading
 
@@ -11,7 +11,7 @@ def initialFetch(conn):
 
 def hourlyFetch(conn):
    while True:
-     time.sleep(60*60)    #to run on every 1 hour
+     time.sleep(60*1)    #to run on every 1 minute
      logs = getAllAttendanceLogs(conn)
      saveData(logs)
      saveLogsToServer()

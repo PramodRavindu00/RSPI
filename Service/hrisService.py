@@ -1,5 +1,5 @@
 import requests
-from dbOps import selectAllUnsyncedLogs,updateAllUnsyncedLogs
+from Repository.repository import selectAllUnsyncedLogs,updateAllUnsyncedLogs
 import os
 from dotenv import load_dotenv
 

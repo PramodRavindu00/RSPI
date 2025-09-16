@@ -1,4 +1,4 @@
-from hrisAPI import getAllDeviceConfigurations
+from Service.hrisService import getAllDeviceConfigurations
 import time
 from datetime import timezone
 from zk import ZK
@@ -8,7 +8,7 @@ def connectDevice(config):
     port = config.get("port")
 
     try:
-        zk = ZK(ip, port)
+        zk = ZK(ip, port,timeout=5)
         conn = zk.connect()
         return conn
     except Exception as e:
@@ -16,7 +16,7 @@ def connectDevice(config):
         return None
 
 
-def connectAllDevices(retries=5, delay=5):
+def connectAllDevices(retries=3, delay=3):
     devices_config = getAllDeviceConfigurations()
     if "data" not in devices_config or len(devices_config["data"]) == 0:
         return []
