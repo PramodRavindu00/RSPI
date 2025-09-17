@@ -66,17 +66,19 @@ def selectAllUnsyncedLogs():
       finally:
          conn.close()
 
-def updateAllUnsyncedLogs():
+def updateAllUnsyncedLogs(batch):
     try:
         conn = sqlite3.connect('db/attendance.db')
         cursor = conn.cursor()
-        cursor.execute("""
+        for row in batch:
+         employeeCode,deviceId,timestamp,clockType = row[0],row[1],row[2],row[3]
+         cursor.execute("""
          UPDATE fingerprintLog
          SET isSynced = 1
-         WHERE isSynced = 0
-         """)
-        conn.commit()  
-        print(f"{cursor.rowcount} row/s updated.")
+            WHERE employeeCode = ? AND deviceId = ? AND timestamp = ? AND clockType = ? AND isSynced = 0
+            """, (employeeCode, deviceId, timestamp, clockType))
+         conn.commit()  
+        print(f"{cursor.rowcount} row/s updated as synced.")
     except Exception as e:
         print(f"Error updating Unsynced logs: {e}")
     finally:
