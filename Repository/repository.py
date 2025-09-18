@@ -32,6 +32,7 @@ def saveData(data):
 
          for log in data:
             log_date = datetime.fromisoformat(log['timestamp']).date()
+            print(log['timestamp'])
             #check the employee has existing record with the same date to determine in or out
             cursor.execute("""
             SELECT COUNT(*) FROM fingerprintLog WHERE employeeCode = ? AND DATE(timestamp)= ? """,(log['employeeCode'],log_date))

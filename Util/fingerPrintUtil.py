@@ -1,7 +1,7 @@
 from Service.hrisService import getAllDeviceConfigurations
 import time
-from datetime import timezone
 from zk import ZK
+from Util.util import localizeTimestamp
 
 def connectDevice(config):
     ip = config.get("ipAddress")
@@ -80,7 +80,7 @@ def getAllAttendanceLogs(connected_devices):
                 for log in logs:
                     log_data = {
                         "employeeCode": log.user_id,
-                        "timestamp": log.timestamp.replace(tzinfo=timezone.utc).isoformat(),
+                        "timestamp": localizeTimestamp(log.timestamp),
                         "deviceLogId": log.uid,
                         "deviceId": device.get("fingerPrintDeviceId", "Unknown"),
                     }
